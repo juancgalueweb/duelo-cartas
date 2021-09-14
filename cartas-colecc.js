@@ -22,37 +22,39 @@ class Unit extends Card {
 }
 
 class Effect extends Card {
-  constructor(name, cost, stat, magnitud) {
+  constructor(name, cost, stat, magnitude) {
     super(name, cost);
-    this.magnitud = magnitud;
+    this.magnitude = magnitude;
     this.stat = stat;
-    this.magnitudValue = Number(magnitud.split("")[1]);
-    this.operation = magnitud.split("")[0];
+    this.magnitudeValue = Number(
+      magnitude.split("").slice(1, magnitude.length).join("")
+    );
+    this.operation = magnitude.split("")[0];
   }
   decreasePow(target) {
-    return (target.power -= this.magnitudValue);
+    return (target.power -= this.magnitudeValue);
   }
   decreaseRes(target) {
-    return (target.res -= this.magnitudValue);
+    return (target.res -= this.magnitudeValue);
   }
   increasePow(target) {
-    return (target.power += this.magnitudValue);
+    return (target.power += this.magnitudeValue);
   }
   increaseRes(target) {
-    return (target.res += this.magnitudValue);
+    return (target.res += this.magnitudeValue);
   }
   play(target) {
     if (target instanceof Unit) {
       if (this.operation == "+") {
         console.log(
-          `Aumentar ${this.stat} del objetivo en ${this.magnitudValue}`
+          `Aumentar ${this.stat} del objetivo en ${this.magnitudeValue}`
         );
         return this.stat === "power"
           ? this.increasePow(target)
           : this.increaseRes(target);
       } else {
         console.log(
-          `Disminuir ${this.stat} del objetivo en ${this.magnitudValue}`
+          `Disminuir ${this.stat} del objetivo en ${this.magnitudeValue}`
         );
         return this.stat === "power"
           ? this.decreasePow(target)
